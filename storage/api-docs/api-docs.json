@@ -1,0 +1,349 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Sua API",
+        "version": "1.0.0",
+        "description": "Descrição da sua API"
+    },
+    "basePath": "/api",
+    "host": "your-host.com",
+    "schemes": ["http", "https"],
+    "paths": {
+        "/api/pedido": {
+            "post": {
+                "summary": "Cria um novo pedido",
+                "tags": ["Pedido"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Pedido"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Pedido criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/RespostaPedido"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao criar um pedido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/Erro"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Pedido": {
+            "type": "object",
+            "properties": {
+                "cliente_id": {"type": "string"},
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "valor": {"type": "number"},
+                        "descricao": {"type": "string"},
+                        "quantidade": {"type": "integer"},
+                        "codigo": {"type": "string"}
+                    }
+                },
+                "pagamento": {
+                    "type": "object",
+                    "properties": {
+                        "cartao": {
+                            "type": "object",
+                            "properties": {
+                                "numero": {"type": "string"},
+                                "nome": {"type": "string"},
+                                "exp_mes": {"type": "integer"},
+                                "exp_ano": {"type": "integer"},
+                                "cvv": {"type": "integer"}
+                            }
+                        },
+                        "parcelas": {"type": "integer"},
+                        "nome_fatura_cartao": {"type": "string"},
+                        "metodo_pagamento": {"type": "string"}
+                    }
+                }
+            }
+        },
+        "RespostaPedido": {
+            "type": "object",
+            "properties": {
+                "pedido": {
+                    "type": "object",
+                    "properties": {
+                        "id": {"type": "string"},
+                        "code": {"type": "string"},
+                        "amount": {"type": "number"},
+                        "currency": {"type": "string"},
+                        "closed": {"type": "boolean"},
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {"type": "string"},
+                                    "type": {"type": "string"},
+                                    "description": {"type": "string"},
+                                    "amount": {"type": "number"},
+                                    "quantity": {"type": "integer"},
+                                    "status": {"type": "string"},
+                                    "created_at": {"type": "string"},
+                                    "updated_at": {"type": "string"},
+                                    "code": {"type": "string"}
+                                }
+                            }
+                        },
+                        "customer": {
+                            "type": "object",
+                            "properties": {
+                                "id": "cus_4gqDvKnsMHDx6PV3",
+                                "name": "Tony Stark",
+                                "email": "tonystarkk@avengers.com",
+                                "code": "MY_CUSTOMER_001",
+                                "document": "93095135270",
+                                "document_type": "cpf",
+                                "type": "individual",
+                                "gender": "male",
+                                "delinquent": false,
+                                "created_at": "2023-11-07T20:28:27Z",
+                                "updated_at": "2023-11-07T20:28:27Z",
+                                "birthdate": "2001-01-12T00:00:00Z",
+                                "phones": {
+                                    "mobile_phone": {
+                                        "country_code": "55",
+                                        "number": "000000000",
+                                        "area_code": "21"
+                                    }
+                                }
+                            }
+                        },
+                        "status": {"type": "string"},
+                        "created_at": {"type": "string"},
+                        "updated_at": {"type": "string"},
+                        "charges": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "id": "ch_ZkMlKY7fLfM684RX",
+                                    "code": "ORZNFYF0R7",
+                                    "gateway_id": "1980723105",
+                                    "amount": 100,
+                                    "status": "failed",
+                                    "currency": "BRL",
+                                    "payment_method": "credit_card",
+                                    "created_at": "2023-11-08T18:41:47Z",
+                                    "updated_at": "2023-11-08T18:41:50Z",
+                                    "customer": {
+                                        "id": "cus_4gqDvKnsMHDx6PV3",
+                                        "name": "Tony Stark",
+                                        "email": "tonystarkk@avengers.com",
+                                        "code": "MY_CUSTOMER_001",
+                                        "document": "93095135270",
+                                        "document_type": "cpf",
+                                        "type": "individual",
+                                        "gender": "male",
+                                        "delinquent": false,
+                                        "created_at": "2023-11-07T20:28:27Z",
+                                        "updated_at": "2023-11-07T20:28:27Z",
+                                        "birthdate": "2001-01-12T00:00:00Z",
+                                        "phones": {
+                                            "mobile_phone": {
+                                                "country_code": "55",
+                                                "number": "000000000",
+                                                "area_code": "21"
+                                            }
+                                        }
+                                    },
+                                    "last_transaction": {
+                                        "id": "tran_ZKkyXqOUzUwn9ovR",
+                                        "transaction_type": "credit_card",
+                                        "gateway_id": "1980723105",
+                                        "amount": 100,
+                                        "status": "not_authorized",
+                                        "success": false,
+                                        "installments": 1,
+                                        "statement_descriptor": "Avengers",
+                                        "acquirer_name": "pagarme",
+                                        "acquirer_tid": "1980723105",
+                                        "acquirer_nsu": "1980723105",
+                                        "acquirer_auth_code": "468469",
+                                        "acquirer_message": "Transação aprovada com sucesso",
+                                        "acquirer_return_code": "0000",
+                                        "operation_type": "auth_and_capture",
+                                        "card": {
+                                            "id": "card_6nBe8wyU3UjWVEaR",
+                                            "first_six_digits": "550209",
+                                            "last_four_digits": "5248",
+                                            "brand": "Mastercard",
+                                            "holder_name": "William Koerich",
+                                            "exp_month": 7,
+                                            "exp_year": 2029,
+                                            "status": "active",
+                                            "type": "credit",
+                                            "created_at": "2023-11-08T12:48:13Z",
+                                            "updated_at": "2023-11-08T18:41:47Z",
+                                            "billing_address": {
+                                                "zip_code": "90265",
+                                                "city": "Malibu",
+                                                "state": "CA",
+                                                "country": "US",
+                                                "line_1": "10880, Malibu Point, Malibu Central"
+                                            }
+                                        },
+                                        "funding_source": "credit",
+                                        "created_at": "2023-11-08T18:41:47Z",
+                                        "updated_at": "2023-11-08T18:41:47Z",
+                                        "gateway_response": {
+                                            "code": "200",
+                                            "errors": []
+                                        },
+                                        "antifraud_response": {
+                                            "status": "reproved",
+                                            "score": "very_high",
+                                            "provider_name": "pagarme"
+                                        },
+                                        "metadata": {}
+                                    }
+                                }
+                            }
+                        },
+                        "checkouts": {"type": "array"}
+                    }
+                },
+                "cobranca": {
+                    "type": "object",
+                    "properties": {
+                        "id": "ch_LW86m1VIGohJO142",
+                        "code": "6VJJFDH9VJ",
+                        "gateway_id": "1980723365",
+                        "amount": 100,
+                        "status": "failed",
+                        "currency": "BRL",
+                        "payment_method": "credit_card",
+                        "created_at": "2023-11-08T18:41:51Z",
+                        "updated_at": "2023-11-08T18:41:54Z",
+                        "order": {
+                            "id": "or_6NOe3VrTpT43WrL9",
+                            "code": "ORZNFYF0R7",
+                            "amount": 100,
+                            "created_at": "2023-11-08T18:41:47Z",
+                            "updated_at": "2023-11-08T18:41:50Z",
+                            "currency": "BRL",
+                            "status": "pending",
+                            "customer_id": "cus_4gqDvKnsMHDx6PV3",
+                            "items": [
+                                {
+                                    "id": "oi_jA4VG6pUoUVOq9Zp",
+                                    "description": "Valor cooparticipação",
+                                    "amount": 100,
+                                    "quantity": 1,
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        "customer": {
+                            "id": "cus_4gqDvKnsMHDx6PV3",
+                            "name": "Tony Stark",
+                            "email": "tonystarkk@avengers.com",
+                            "code": "MY_CUSTOMER_001",
+                            "document": "93095135270",
+                            "document_type": "cpf",
+                            "type": "individual",
+                            "gender": "male",
+                            "delinquent": false,
+                            "created_at": "2023-11-07T20:28:27Z",
+                            "updated_at": "2023-11-07T20:28:27Z",
+                            "birthdate": "2001-01-12T00:00:00Z",
+                            "phones": {
+                                "mobile_phone": {
+                                    "country_code": "55",
+                                    "number": "000000000",
+                                    "area_code": "21"
+                                }
+                            }
+                        },
+                        "last_transaction": {
+                            "id": "tran_wlNgBaEhoEUrGYoP",
+                            "transaction_type": "credit_card",
+                            "gateway_id": "1980723365",
+                            "amount": 100,
+                            "status": "not_authorized",
+                            "success": false,
+                            "installments": 1,
+                            "statement_descriptor": "Avengers",
+                            "acquirer_name": "pagarme",
+                            "acquirer_tid": "1980723365",
+                            "acquirer_nsu": "1980723365",
+                            "acquirer_auth_code": "545608",
+                            "acquirer_message": "Transação aprovada com sucesso",
+                            "acquirer_return_code": "0000",
+                            "operation_type": "auth_and_capture",
+                            "card": {
+                                "id": "card_6nBe8wyU3UjWVEaR",
+                                "first_six_digits": "550209",
+                                "last_four_digits": "5248",
+                                "brand": "Mastercard",
+                                "holder_name": "William Koerich",
+                                "exp_month": 7,
+                                "exp_year": 2029,
+                                "status": "active",
+                                "type": "credit",
+                                "created_at": "2023-11-08T12:48:13Z",
+                                "updated_at": "2023-11-08T18:41:51Z",
+                                "billing_address": {
+                                    "zip_code": "90265",
+                                    "city": "Malibu",
+                                    "state": "CA",
+                                    "country": "US",
+                                    "line_1": "10880, Malibu Point, Malibu Central"
+                                }
+                            },
+                            "funding_source": "credit",
+                            "created_at": "2023-11-08T18:41:51Z",
+                            "updated_at": "2023-11-08T18:41:51Z",
+                            "gateway_response": {
+                                "code": "200",
+                                "errors": []
+                            },
+                            "antifraud_response": {
+                                "status": "reproved",
+                                "score": "very_high",
+                                "provider_name": "pagarme"
+                            },
+                            "metadata": {}
+                        }
+                    }
+                },
+                "status": {"type": "string"},
+                "code": {"type": "string"},
+                "message": {"type": "string"}
+            }
+        },
+        "Erro": {
+            "type": "object",
+            "properties": {
+                "status": {"type": "string"},
+                "code": {"type": "string"},
+                "message": {"type": "string"}
+            }
+        }
+    }
+}
